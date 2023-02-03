@@ -1,152 +1,175 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import ProductService from "../../services/productService";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import ProductService from '../../services/productService';
+import Select from 'react-select';
 
 export default function Products(props) {
-
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [items, setItems] = useState([]);
-    const [q, setQ] = useState("");
-    const [searchParam] = useState(["capital", "name", "numericCode"]);
-    const [filterParam, setFilterParam] = useState(["All"]);
-    const [isLoading, setIsLoading] = useState(false)
-    
+    const [items, setItems] = useState(null);
+    const [q, setQ] = useState('');
+    const [searchParam] = useState(['capital', 'name', 'numericCode']);
+    const [filterParam, setFilterParam] = useState(['All']);
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState([]);
+    const [sortType, setSortType] = useState('');
+    const [type, setSelectedType] = useState(null);
+    const [searchInput, setSearchInput] = useState('');
 
-    // useEffect(() => {
-    //     setIsLoading(true)
-    //     axios
-    //       .get(url)
-    //       .then(response => {
-    //         setUsers(response.data)
-    //         setIsLoading(false)
-    //       })
-    //       .catch(error => {
-    //         setError("Sorry, something went wrong")
-    //         setIsLoading(false)
-    //       })
-    //   }, [url])
+    const productTypeData = [
+        { value: 'title', label: 'Title' },
+        { value: 'description', label: 'Description' },
+        { value: 'price', label: 'Price' },
+        { value: 'stock', label: 'Stock' },
+    ];
 
-    useEffect( () => {
-        
-        setIsLoading(true)
+    useEffect(() => {
+        setIsLoading(true);
         ProductService.getallProducts()
             .then((res) => res.json())
             .then(
                 (result) => {
-                    setIsLoading(false)
-                    setItems(result);
+                    setIsLoading(false);
+                    setItems(result.products);
+                    console.log('api items', items);
                 },
                 (error) => {
-                    setIsLoading(false)
-                    setError(error);
-                }
+                    setIsLoading(false);
+                    setError('Something went wrong!');
+                },
             );
     }, []);
 
-    const data = Object.values(items);
+    const sortArray = (e) => {
+        setSelectedType(e);
 
-    function search(items) {
-        return items.filter((item) => {
-            if (item.region == filterParam) {
-                return searchParam.some((newItem) => {
-                    return (
-                        item[newItem]
-                            .toString()
-                            .toLowerCase()
-                            .indexOf(q.toLowerCase()) > -1
-                    );
-                });
-            } else if (filterParam == "All") {
-                return searchParam.some((newItem) => {
-                    return (
-                        item[newItem]
-                            .toString()
-                            .toLowerCase()
-                            .indexOf(q.toLowerCase()) > -1
-                    );
-                });
-            }
-        });
-    }
+        const sortProperty = e.value;
+        let sorted;
+        if (sortProperty === 'title' || sortProperty == 'description') {
+            sorted = [...items].sort((a, b) => a[sortProperty].localeCompare(b[sortProperty]));
+            setItems(sorted);
+        } else if (sortProperty === 'price' || sortProperty === 'stock') {
+            sorted = [...items].sort((a, b) => a[sortProperty] - b[sortProperty]);
+            setItems(sorted);
+        } else {
+            sorted = [...items].sort((a, b) => a - b);
+            setItems(items);
+        }
+    };
 
-    // const searchItems = (searchValue) => {
-    //     setSearchInput(searchValue)
-    //     if (searchInput !== '') {
-    //         const filteredData = APIData.filter((item) => {
-    //             return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
-    //         })
-    //         setFilteredResults(filteredData)
-    //     }
-    //     else{
-    //         setFilteredResults(APIData)
-    //     }
+    // const data = Object.values(items);
+
+    // function search(items) {
+    //     return items.filter((item) => {
+    //         if (item.region == filterParam) {
+    //             return searchParam.some((newItem) => {
+    //                 return (
+    //                     item[newItem]
+    //                         .toString()
+    //                         .toLowerCase()
+    //                         .indexOf(q.toLowerCase()) > -1
+    //                 );
+    //             });
+    //         } else if (filterParam == "All") {
+    //             return searchParam.some((newItem) => {
+    //                 return (
+    //                     item[newItem]
+    //                         .toString()
+    //                         .toLowerCase()
+    //                         .indexOf(q.toLowerCase()) > -1
+    //                 );
+    //             });
+    //         }
+    //     });
     // }
 
+    const searchItems = (searchValue) => {
+        console.log('searchValue', searchValue);
+        setSearchInput(searchValue);
+
+        ProductService.searchProduct(searchValue)
+            .then((res) => res.json())
+            .then(
+                (data) => {
+                    setIsLoading(false);
+                    if (searchInput !== '') {
+                        const filteredData = data?.products.filter((item) => {
+                            console.log('item', item);
+                            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase());
+                        });
+                        setItems(filteredData);
+                    } else {
+                        console.log('all', data.products);
+                        setItems(data.products);
+                    }
+                },
+                (error) => {
+                    setIsLoading(false);
+                    setError('Something went wrong!');
+                },
+            );
+    };
+
     if (isLoading) {
-        return <div>Loading..</div>
-      }
-      if (error) {
-        return <div>{error}</div>
-      }
-     
-        return (
-            <div className="wrapper">
-                <div className="search-wrapper">
-                    <label htmlFor="search-form">
-                        <input
-                            type="search"
-                            name="search-form"
-                            id="search-form"
-                            className="search-input"
-                            placeholder="Search for..."
-                            value={q}
-                            onChange={(e) => setQ(e.target.value)}
-                        />
-                        <span className="sr-only">Search countries here</span>
-                    </label>
+        return <div>Loading..</div>;
+    }
+    //   if (error) {
+    //     return <div>{error}</div>
+    //   }
 
-                    <div className="select">
-                        <select
-                            onChange={(e) => {
-                                setFilterParam(e.target.value);
-                            }}
-                            className="custom-select"
-                            aria-label="Filter Countries By Region"
-                        >
-                            <option value="All">Filter By Region</option>
-                            <option value="Africa">Africa</option>
-                            <option value="Americas">America</option>
-                            <option value="Asia">Asia</option>
-                            <option value="Europe">Europe</option>
-                            <option value="Oceania">Oceania</option>
-                        </select>
-                        <span className="focus"></span>
-                    </div>
-
-                </div>
+    return (
+        <div className="wrapper">
+            <div className="search-wrapper">
+                <label htmlFor="search-form">
+                    <input
+                        type="search"
+                        name="search-form"
+                        id="search-form"
+                        className="search-input"
+                        placeholder="Search for..."
+                        value={searchInput}
+                        onChange={(e) => searchItems(e.target.value)}
+                    />
+                    <span className="sr-only">Search countries here</span>
+                </label>
+                <Select
+                    placeholder="Sort by"
+                    value={type}
+                    options={productTypeData} // set list of the data
+                    onChange={sortArray} // assign onChange function
+                    isOptionDisabled={(option) => option.isdisabled} // disable an option
+                />
+            </div>
+            {error && <div>{error}</div>}
+            {console.log('items', items)}
+            {items ? (
                 <ul className="card-grid">
-                    {search(data).map((item) => (
+                    {items.map((item) => (
                         <li>
                             <article className="card" key={item.alpha3Code}>
                                 <div className="card-image">
-                                    <img
+                                    {/* <img
                                         src={item.flag.large}
                                         alt={item.name}
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="card-content">
-                                    <h2 className="card-name">{item.name}</h2>
+                                    <h2 className="card-name">{item.id}</h2>
                                     <ol className="card-list">
                                         <li>
-                                            population:{" "}
-                                            <span>{item.population}</span>
+                                            Title: <span>{item.title}</span>
                                         </li>
                                         <li>
-                                            Region: <span>{item.region}</span>
+                                            Description: <span>{item.description}</span>
                                         </li>
                                         <li>
-                                            Capital: <span>{item.capital}</span>
+                                            Category: <span>{item.category}</span>
+                                        </li>
+                                        <li>
+                                            Price: <span>{item.price}</span>
+                                        </li>
+                                        <li>
+                                            Stock: <span>{item.stock}</span>
                                         </li>
                                     </ol>
                                 </div>
@@ -154,8 +177,9 @@ export default function Products(props) {
                         </li>
                     ))}
                 </ul>
-            </div>
-        );
-    }
-
-
+            ) : (
+                <p>No products found</p>
+            )}
+        </div>
+    );
+}
