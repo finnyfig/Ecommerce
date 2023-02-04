@@ -35,7 +35,7 @@ export default function Products(props) {
                 },
                 (error) => {
                     setIsLoading(false);
-                    setError('Something went wrong!');
+                    setError('Something went wrongg!');
                 },
             );
     }, []);
