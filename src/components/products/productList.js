@@ -35,7 +35,7 @@ export default function Products(props) {
                 },
                 (error) => {
                     setIsLoading(false);
-                    setError('Something went wrongg!');
+                    setError('Something went wrong!');
                 },
             );
     }, []);
@@ -130,7 +130,7 @@ export default function Products(props) {
                         value={searchInput}
                         onChange={(e) => searchItems(e.target.value)}
                     />
-                    <span className="sr-only">Search countries fail production</span>
+                    <span className="sr-only">Search countries here</span>
                 </label>
                 <Select
                     placeholder="Sort by"
