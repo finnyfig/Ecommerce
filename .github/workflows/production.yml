@@ -13,7 +13,7 @@ jobs:
             - name: Setup mode
               uses: actions/setup-node@v3
             - name: Install dependencies
-              run: npm install
+              run: npm install -legacy-peer-deps
             - name: Formatting and linting
               run: |
                   npm run format
