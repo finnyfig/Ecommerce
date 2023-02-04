@@ -130,7 +130,7 @@ export default function Products(props) {
                         value={searchInput}
                         onChange={(e) => searchItems(e.target.value)}
                     />
-                    <span className="sr-only">Search countries here</span>
+                    <span className="sr-only">Search countries </span>
                 </label>
                 <Select
                     placeholder="Sort by"
