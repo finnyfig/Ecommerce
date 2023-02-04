@@ -23,8 +23,8 @@ jobs:
               run:
               npm run format
               npm run lint
-            -name:Tests
-              run:nom run test
+              -name:Tests
+              run:npm run test
 
 
 
