@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Products from "./components/products/productList";
+import React, { useState } from 'react';
+import Products from './components/products/productList';
 
 function App() {
-  return (
-    <>
-      <Products />
-    </>
-  );
+    return (
+        <>
+            <Products />
+        </>
+    );
 }
 
 export default App;

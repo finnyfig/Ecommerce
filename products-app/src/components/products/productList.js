@@ -144,9 +144,9 @@ export default function Products(props) {
             {console.log('items', items)}
             {items ? (
                 <ul className="card-grid">
-                    {items.map((item) => (
-                        <li>
-                            <article className="card" key={item.alpha3Code}>
+                    {items.map((item, index) => (
+                        <li key={index}>
+                            <article className="card">
                                 <div className="card-image">
                                     {/* <img
                                         src={item.flag.large}
