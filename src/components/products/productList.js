@@ -42,7 +42,7 @@ export default function Products(props) {
 
     const sortArray = (e) => {
         setSelectedType(e);
-
+        //sorting
         const sortProperty = e.value;
         let sorted;
         if (sortProperty === 'title' || sortProperty == 'description') {
