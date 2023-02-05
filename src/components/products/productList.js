@@ -110,6 +110,19 @@ export default function Products(props) {
             );
     };
 
+    const handleDelete = (id) => {
+        //make a shallow copy of state
+        // console.log('id', id);
+        // let copy = [...items];
+
+        // copy.splice(id, 1);
+        // console.log('copy', copy);
+        // setItems(copy);
+
+        setItems(items.filter((items) => items.id !== id));
+        // setItems(items);
+    };
+
     if (isLoading) {
         return <div>Loading..</div>;
     }
@@ -172,6 +185,7 @@ export default function Products(props) {
                                             Stock: <span>{item.stock}</span>
                                         </li>
                                     </ol>
+                                    <button onClick={() => handleDelete(item.id)}>Delete product</button>
                                 </div>
                             </article>
                         </li>
