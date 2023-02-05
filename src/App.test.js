@@ -24,9 +24,8 @@ describe('Products', () => {
         fetchMock.mockResolvedValue({
             status: 200,
             json: jest.fn(() => fakeProducts),
-        });
-
-        render(<Products />);
+        }),
+            render(<Products />);
 
         expect(await screen.findByText('iphone 9')).toBeInTheDocument();
         expect(await screen.findByText('iphone 14')).toBeInTheDocument();

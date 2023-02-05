@@ -111,16 +111,22 @@ export default function Products(props) {
     };
 
     const handleDelete = (id) => {
-        //make a shallow copy of state
-        // console.log('id', id);
-        // let copy = [...items];
-
-        // copy.splice(id, 1);
-        // console.log('copy', copy);
-        // setItems(copy);
-
-        setItems(items.filter((items) => items.id !== id));
-        // setItems(items);
+        setIsLoading(true);
+        console.log('id', id);
+        ProductService.deleteProductById(id)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.id) {
+                    setIsLoading(false);
+                    setItems(items.filter((items) => items.id !== data.id && data.isDeleted == true));
+                } else {
+                    setIsLoading(false);
+                    setError('Product not found');
+                }
+            })
+            .catch((error) => {
+                console.log('error', error);
+            });
     };
 
     if (isLoading) {
