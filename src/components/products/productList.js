@@ -15,6 +15,8 @@ export default function Products(props) {
     const [sortType, setSortType] = useState('');
     const [type, setSelectedType] = useState(null);
     const [searchInput, setSearchInput] = useState('');
+    const [categoryOptions, setCategoryOptions] = useState([]);
+    const [category, setCategory] = useState(null);
 
     const productTypeData = [
         { value: 'title', label: 'Title' },
@@ -32,6 +34,27 @@ export default function Products(props) {
                     setIsLoading(false);
                     setItems(result.products);
                     console.log('api items', items);
+                },
+                (error) => {
+                    setIsLoading(false);
+                    setError('Something went wrong!');
+                },
+            );
+        ProductService.getAllProductCategories()
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setIsLoading(false);
+                    let categoryArr = [];
+                    result.map((category) => {
+                        categoryArr.push({
+                            value: category,
+                            label: category,
+                        });
+                    });
+
+                    console.log('categoryArr', categoryArr);
+                    setCategoryOptions(categoryArr);
                 },
                 (error) => {
                     setIsLoading(false);
@@ -57,31 +80,22 @@ export default function Products(props) {
         }
     };
 
-    // const data = Object.values(items);
-
-    // function search(items) {
-    //     return items.filter((item) => {
-    //         if (item.region == filterParam) {
-    //             return searchParam.some((newItem) => {
-    //                 return (
-    //                     item[newItem]
-    //                         .toString()
-    //                         .toLowerCase()
-    //                         .indexOf(q.toLowerCase()) > -1
-    //                 );
-    //             });
-    //         } else if (filterParam == "All") {
-    //             return searchParam.some((newItem) => {
-    //                 return (
-    //                     item[newItem]
-    //                         .toString()
-    //                         .toLowerCase()
-    //                         .indexOf(q.toLowerCase()) > -1
-    //                 );
-    //             });
-    //         }
-    //     });
-    // }
+    const filterByCategory = (e) => {
+        console.log('CATEGORY', e, 'items', items);
+        setCategory(e);
+        ProductService.getProductsCategory(e.value)
+            .then((res) => res.json())
+            .then(
+                (result) => {
+                    setIsLoading(false);
+                    setItems(result.products);
+                },
+                (error) => {
+                    setIsLoading(false);
+                    setError('Something went wrong!');
+                },
+            );
+    };
 
     const searchItems = (searchValue) => {
         console.log('searchValue', searchValue);
@@ -149,8 +163,28 @@ export default function Products(props) {
                         value={searchInput}
                         onChange={(e) => searchItems(e.target.value)}
                     />
-                    <span className="sr-only">Search countries here</span>
+                    {console.log('category items', categoryOptions)}
+                    {/* <select
+                        value={category}
+                        onChange={(e) => filterByCategory(e.target.value)}
+                        placeholder="Select category"
+                    >
+                        {categoryOptions.map((option, i) => {
+                            return (
+                                <option value={option} key={i}>
+                                    {option}
+                                </option>
+                            );
+                        })}
+                    </select> */}
                 </label>
+                <Select
+                    placeholder="Filter by category"
+                    value={category}
+                    options={categoryOptions} // set list of the data
+                    onChange={filterByCategory} // assign onChange function
+                    isOptionDisabled={(option) => option.isdisabled} // disable an option
+                />
                 <Select
                     placeholder="Sort by"
                     value={type}
@@ -173,8 +207,8 @@ export default function Products(props) {
                                     /> */}
                                 </div>
                                 <div className="card-content">
-                                    <h2 className="card-name">{item.id}</h2>
-                                    <ol className="card-list">
+                                    <h2 className="card-name"></h2>
+                                    <ul className="card-list">
                                         <li>
                                             Title: <span>{item.title}</span>
                                         </li>
@@ -190,7 +224,7 @@ export default function Products(props) {
                                         <li>
                                             Stock: <span>{item.stock}</span>
                                         </li>
-                                    </ol>
+                                    </ul>
                                     <button onClick={() => handleDelete(item.id)}>Delete product</button>
                                 </div>
                             </article>
