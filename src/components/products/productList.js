@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import ProductService from '../../services/productService';
-import Card from '../../components/Card/card';
+import Card from '../Card/card';
 import { CardWrapper, CardContainer } from '../Card/cardStyles';
 import { ContentBox, Box, ProductsWrapper } from './styles';
 import FilterCategory from '../FilterCategory/filterCategory';
