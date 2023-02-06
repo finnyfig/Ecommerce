@@ -1,31 +1,16 @@
 import React from 'react';
-import {
-    CardWrapper,
-    CardTextWrapper,
-    CardTextDate,
-    CardTextTitle,
-    CardTextBody,
-    CardStatWrapper,
-    CardStats,
-    LinkText,
-} from './cardStyles';
+import { CardTextWrapper, CardCategory, CardTextTitle, CardTextBody, CardSPrice, CardStock } from './cardStyles';
 
 const Card = ({ products }) => {
     return (
         <>
-            {console.log('products', products)}
             <CardTextWrapper>
                 <CardTextTitle>{products.title}</CardTextTitle>
+                <CardCategory>Category : {products.category}</CardCategory>
                 <CardTextBody>{products.description}</CardTextBody>
+                <CardSPrice>Price :{products.price}</CardSPrice>
+                <CardStock>Stock : {products.stock}</CardStock>
             </CardTextWrapper>
-            {/* <CardStatWrapper>
-                <CardStats>
-                    <LinkText href="#">website</LinkText>
-                </CardStats>
-                <CardStats>
-                    <LinkText href="#">github</LinkText>
-                </CardStats>
-            </CardStatWrapper> */}
         </>
     );
 };

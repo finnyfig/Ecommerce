@@ -30,13 +30,16 @@ const FilterCategory = ({ setItems, items }) => {
     };
 
     return (
-        <Select
-            placeholder="Sort by"
-            value={type}
-            options={productTypeData} // set list of the data
-            onChange={sortArray} // assign onChange function
-            isOptionDisabled={(option) => option.isdisabled} // disable an option
-        />
+        <>
+            <label htmlFor="sortBy">Sort By</label>
+            <Select
+                inputId="sortBy"
+                value={type}
+                options={productTypeData} // set list of the data
+                onChange={sortArray} // assign onChange function
+                isOptionDisabled={(option) => option.isdisabled} // disable an option
+            />
+        </>
     );
 };
 
