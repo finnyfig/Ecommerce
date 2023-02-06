@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 import React from 'react';
-import Products from './components/products/productList';
+import Products from './components/Products/productList';
 import Card from './components/Card/card';
 import FilterCategory from './components/FilterCategory/filterCategory';
 import { act } from 'react-dom/test-utils';

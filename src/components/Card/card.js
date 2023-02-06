@@ -4,7 +4,6 @@ import { CardTextWrapper, CardCategory, CardTextTitle, CardTextBody, CardSPrice,
 const Card = ({ products }) => {
     return (
         <>
-            {console.log('products', products)}
             <CardTextWrapper>
                 <CardTextTitle>{products.title}</CardTextTitle>
                 <CardCategory>Category : {products.category}</CardCategory>
