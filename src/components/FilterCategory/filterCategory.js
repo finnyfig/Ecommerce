@@ -61,7 +61,6 @@ const FilterCategory = ({ setItems }) => {
                     isOptionDisabled={(option) => option.isdisabled} // disable an option
                 />
             </form>
-            ,
         </>
     );
 };

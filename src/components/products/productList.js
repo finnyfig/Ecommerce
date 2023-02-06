@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ProductService from '../../services/productService';
 import Card from '../../components/Card/card';
 import { CardWrapper, CardContainer } from '../Card/cardStyles';
+import { ContentBox, Box, ProductsWrapper } from './styles';
 import FilterCategory from '../FilterCategory/filterCategory';
 import SortProducts from '../SortProducts/sortProducts';
 import SearchProducts from '../SearchProducts/search';
@@ -35,12 +36,18 @@ export default function Products(props) {
         return <div>Loading..</div>;
     }
     return (
-        <div className="wrapper">
-            <SearchProducts setItems={setItems} />
-
-            <SortProducts setItems={setItems} items={items} />
-
-            <FilterCategory setItems={setItems} />
+        <ProductsWrapper>
+            <ContentBox>
+                <Box>
+                    <SortProducts setItems={setItems} items={items} />
+                </Box>
+                <Box>
+                    <SearchProducts setItems={setItems} />
+                </Box>
+                <Box>
+                    <FilterCategory setItems={setItems} />
+                </Box>
+            </ContentBox>
 
             {error && <div>{error}</div>}
             {items ? (
@@ -57,6 +64,6 @@ export default function Products(props) {
             ) : (
                 <p>No products found</p>
             )}
-        </div>
+        </ProductsWrapper>
     );
 }
