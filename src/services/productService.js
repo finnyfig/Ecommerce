@@ -1,8 +1,4 @@
 class ProductService {
-    // getallProducts = async () => {
-    //   return await fetch(`https://raw.githubusercontent.com/iamspruce/search-filter-painate-reactjs/main/data/countries.json`);
-    // };
-
     getallProducts = async () => {
         return await fetch(`https://dummyjson.com/products`);
     };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Products from './components/products/productList';
+import Products from './components/Products/productList';
 
 function App() {
     return (
