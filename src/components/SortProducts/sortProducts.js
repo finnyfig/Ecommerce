@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
 const FilterCategory = ({ setItems, items }) => {
-    const [sortType, setSortType] = useState('');
     const [type, setSelectedType] = useState(null);
 
     const productTypeData = [

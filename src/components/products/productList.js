@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import styled from 'styled-components';
 import ProductService from '../../services/productService';
 import Card from '../Card/card';
 import { CardWrapper, CardContainer } from '../Card/cardStyles';
@@ -23,7 +22,6 @@ export default function Products(props) {
                 (result) => {
                     setIsLoading(false);
                     setItems(result.products);
-                    console.log('api items', items);
                 },
                 (error) => {
                     setIsLoading(false);

@@ -14,7 +14,6 @@ const FilterCategory = ({ setItems }) => {
             .then(
                 (filter) => {
                     let categoryArr = [];
-                    console.log('filter', filter);
                     filter?.map((category, index) => {
                         categoryArr.push({
                             value: category,
@@ -22,7 +21,6 @@ const FilterCategory = ({ setItems }) => {
                         });
                     });
                     setIsLoading(false);
-                    console.log('categoryArr', categoryArr);
                     setCategoryOptions(categoryArr);
                 },
                 (error) => {
@@ -33,7 +31,6 @@ const FilterCategory = ({ setItems }) => {
     }, []);
 
     const filterByCategory = (e) => {
-        console.log('CATEGORY', e);
         setCategory(e);
         ProductService.getProductsCategory(e.value)
             .then((res) => res.json())
