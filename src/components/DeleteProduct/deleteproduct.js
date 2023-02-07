@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ProductService from '../../services/productService';
-import styled from 'styled-components';
 import { DeleteButton } from './deleteStyles';
 
 const DeleteProductButton = ({ setItems, items, itemId }) => {

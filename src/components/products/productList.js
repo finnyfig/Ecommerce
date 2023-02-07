@@ -15,7 +15,7 @@ export default function Products(props) {
 
     useEffect(() => {
         setIsLoading(true);
-
+        //Load all the products from api and save in items
         ProductService.getallProducts()
             .then((res) => res.json())
             .then(
@@ -37,12 +37,15 @@ export default function Products(props) {
         <ProductsWrapper>
             <ContentBox>
                 <Box>
+                    {/* Sorting products */}
                     <SortProducts setItems={setItems} items={items} />
                 </Box>
                 <Box>
+                    {/* Searching  products with product description*/}
                     <SearchProducts setItems={setItems} />
                 </Box>
                 <Box>
+                    {/* Filter based on category of products */}
                     <FilterCategory setItems={setItems} />
                 </Box>
             </ContentBox>
@@ -53,7 +56,9 @@ export default function Products(props) {
                     {items.map((item, index) => (
                         <Fragment key={item.id}>
                             <CardWrapper>
+                                {/* Display card layout for products  */}
                                 <Card products={item} />
+                                {/* Product is deleted from the list when this button is clicked */}
                                 <DeleteProductButton setItems={setItems} itemId={item.id} items={items} />
                             </CardWrapper>
                         </Fragment>
