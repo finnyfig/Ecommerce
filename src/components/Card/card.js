@@ -9,6 +9,7 @@ import {
     CardStock,
     CardProductImage,
 } from './cardStyles';
+import { ContentBox, Box, ProductsWrapper } from '../products/styles';
 
 const Card = ({ products }) => {
     //destructing of props passed to function
@@ -20,8 +21,16 @@ const Card = ({ products }) => {
                 <CardTextTitle>{title}</CardTextTitle>
                 <CardCategory>Category : {category}</CardCategory>
                 <CardTextBody>{description}</CardTextBody>
-                <CardSPrice>Price :{price}</CardSPrice>
-                <CardStock>Stock : {stock}</CardStock>
+                <ContentBox>
+                    <Box>
+                        {' '}
+                        <CardSPrice>Price :{price}</CardSPrice>
+                    </Box>
+                    <Box>
+                        {' '}
+                        <CardStock>Stock : {stock}</CardStock>
+                    </Box>
+                </ContentBox>
             </CardTextWrapper>
         </>
     );

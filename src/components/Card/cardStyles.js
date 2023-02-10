@@ -25,12 +25,13 @@ export const CardCategory = styled.h2`
 
 export const CardTextTitle = styled.h2`
     margin-top: 0px;
-    font-size: 1rem;
+    font-size: 1.04em;
     box-sizing: border-box;
+    text-transform: uppercase;
     min-width: 0px;
     line-height: 1.2;
     margin: 0px;
-    background: #000;
+    background: #a979c7;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -39,17 +40,15 @@ export const CardTextTitle = styled.h2`
 export const CardTextBody = styled.p`
     color: grey;
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     height: 8vh;
 `;
 
 export const CardSPrice = styled.h2`
-    margin-top: 0px;
     font-size: 1rem;
 `;
 
-export const CardStock = styled.div`
-    margin-top: 0px;
+export const CardStock = styled.h2`
     font-size: 1rem;
 `;
 
