@@ -17,3 +17,13 @@ export const Box = styled.div`
 export const ProductsWrapper = styled.div`
     margin: 2rem 5rem 2rem;
 `;
+
+export const LoaderWrapper = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: -webkit-translate(-50%, -50%);
+    transform: -moz-translate(-50%, -50%);
+    transform: -ms-translate(-50%, -50%);
+`;

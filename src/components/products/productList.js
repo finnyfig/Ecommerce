@@ -2,11 +2,12 @@ import React, { useState, useEffect, Fragment } from 'react';
 import ProductService from '../../services/productService';
 import Card from '../Card/card';
 import { CardWrapper, CardContainer } from '../Card/cardStyles';
-import { ContentBox, Box, ProductsWrapper } from './styles';
+import { ContentBox, Box, ProductsWrapper, LoaderWrapper } from './styles';
 import FilterCategory from '../FilterCategory/filterCategory';
 import SortProducts from '../SortProducts/sortProducts';
 import SearchProducts from '../SearchProducts/search';
 import DeleteProductButton from '../DeleteProduct/deleteproduct';
+import Loader from '../../assets/spinning-circles.svg';
 
 export default function Products(props) {
     const [error, setError] = useState(null);
@@ -20,8 +21,8 @@ export default function Products(props) {
             .then((res) => res.json())
             .then(
                 (result) => {
-                    setIsLoading(false);
                     setItems(result.products);
+                    setIsLoading(false);
                 },
                 (error) => {
                     setIsLoading(false);
@@ -31,7 +32,11 @@ export default function Products(props) {
     }, []);
 
     if (isLoading) {
-        return <div>Loading..</div>;
+        return (
+            <LoaderWrapper>
+                <Loader />
+            </LoaderWrapper>
+        );
     }
     return (
         <ProductsWrapper>
