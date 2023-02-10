@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { CardTextWrapper, CardCategory, CardTextTitle, CardTextBody, CardSPrice, CardStock } from './cardStyles';
 
 const Card = ({ products }) => {
+    //destructing of props passed to function
     const { title, category, description, price, stock } = products;
     return (
         <>
