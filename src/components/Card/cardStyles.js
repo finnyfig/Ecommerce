@@ -40,7 +40,7 @@ export const CardTextBody = styled.p`
     color: grey;
     font-size: 15px;
     font-weight: 300;
-    height: 11vh;
+    height: 8vh;
 `;
 
 export const CardSPrice = styled.h2`
@@ -51,4 +51,11 @@ export const CardSPrice = styled.h2`
 export const CardStock = styled.div`
     margin-top: 0px;
     font-size: 1rem;
+`;
+
+export const CardProductImage = styled.img`
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    width: 60%;
+    margin-bottom: 1em;
 `;
