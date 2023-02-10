@@ -15,12 +15,13 @@ export const CardWrapper = styled.div`
 
 export const CardTextWrapper = styled.div`
     grid-area: auto;
-    margin: 25px;
+    margin: 20px;
 `;
 
 export const CardCategory = styled.h2`
     color: #000;
     font-size: 16px;
+    text-transform: capitalize;
 `;
 
 export const CardTextTitle = styled.h2`
@@ -42,6 +43,10 @@ export const CardTextBody = styled.p`
     font-size: 15px;
     font-weight: 400;
     height: 8vh;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 14em;
 `;
 
 export const CardSPrice = styled.h2`

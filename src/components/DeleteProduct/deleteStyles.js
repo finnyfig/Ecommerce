@@ -21,6 +21,8 @@ export const DeleteButton = styled.button`
     background: #d30000;
     color: white;
     margin-bottom: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
     &:hover {
         background-color: #a90000;
     }

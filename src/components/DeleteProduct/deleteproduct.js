@@ -22,7 +22,7 @@ const DeleteProductButton = ({ setItems, items, itemId }) => {
                 console.log('error', error);
             });
     };
-    return <DeleteButton onClick={() => handleDelete(itemId)}>Delete product</DeleteButton>;
+    return <DeleteButton onClick={() => handleDelete(itemId)}>Delete</DeleteButton>;
 };
 
 export default DeleteProductButton;

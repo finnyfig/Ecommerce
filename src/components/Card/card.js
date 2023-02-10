@@ -24,7 +24,7 @@ const Card = ({ products }) => {
                 <ContentBox>
                     <Box>
                         {' '}
-                        <CardSPrice>Price :{price}</CardSPrice>
+                        <CardSPrice>Price : {price}</CardSPrice>
                     </Box>
                     <Box>
                         {' '}
