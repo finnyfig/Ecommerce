@@ -7,13 +7,12 @@ const DeleteProductButton = ({ setItems, items, itemId }) => {
 
     const handleDelete = (id) => {
         setIsLoading(true);
-        console.log('id', id);
         ProductService.deleteProductById(id)
             .then((res) => res.json())
             .then((data) => {
                 if (data.id) {
                     setIsLoading(false);
-                    setItems(items.filter((items) => items.id !== data.id && data.isDeleted == true));
+                    setItems(items?.filter((items) => items.id !== data.id && data.isDeleted == true));
                 } else {
                     setIsLoading(false);
                     setError('Product not found');
