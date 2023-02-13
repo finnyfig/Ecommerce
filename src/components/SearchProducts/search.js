@@ -9,6 +9,8 @@ const SearchProducts = ({ setItems, items, setIsLoading }) => {
     const [debouncedValue, setDebouncedValue] = useState(searchInput);
 
     useEffect(() => {
+        //the clearTimeout will clear the timer at the end of delay if the searchInput keeps changing
+        // setDebouncedValue value will be set when  there is no change
         const timer = setTimeout(() => setDebouncedValue(searchInput), 300);
         console.log('search debounce');
         return () => clearTimeout(timer);
@@ -64,6 +66,7 @@ const SearchProducts = ({ setItems, items, setIsLoading }) => {
                     placeholder="Search for products..."
                     value={searchInput}
                     onChange={(e) => searchItems(e.target.value)}
+                    //onBlur={() => setSearchInput('')}
                 />
             </div>
         </>

@@ -56,6 +56,7 @@ const FilterCategory = ({ setItems, setIsLoading }) => {
                     options={categoryOptions} // set list of the data
                     onChange={filterByCategory} // assign onChange function
                     isOptionDisabled={(option) => option.isdisabled} // disable an option
+                    //onBlur={() => setCategory(null)}
                 />
             </form>
         </>

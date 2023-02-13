@@ -37,6 +37,7 @@ const FilterCategory = ({ setItems, items }) => {
                 options={productTypeData} // set list of the data
                 onChange={sortArray} // assign onChange function
                 isOptionDisabled={(option) => option.isdisabled} // disable an option
+                //onBlur={() => setSelectedType(null)}
             />
         </>
     );

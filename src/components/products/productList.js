@@ -16,19 +16,27 @@ export default function Products(props) {
 
     useEffect(() => {
         setIsLoading(true);
+        let isCancelled = false;
+
         //Load all the products from api and save in items
         ProductService.getallProducts()
             .then((res) => res.json())
             .then(
                 (result) => {
-                    setItems(result.products);
-                    setIsLoading(false);
+                    if (!isCancelled) {
+                        setItems(result.products);
+                        setIsLoading(false);
+                    }
                 },
                 (error) => {
                     setIsLoading(false);
                     setError('Something went wrong!');
                 },
             );
+
+        return () => {
+            isCancelled = true;
+        };
     }, []);
 
     return (
