@@ -5,11 +5,15 @@ import { SearchInput } from './searchStyles';
 const SearchProducts = ({ setItems, items }) => {
     const [searchInput, setSearchInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [debouncedValue, setDebouncedValue] = useState(searchInput);
 
-    const searchItems = (searchValue) => {
-        setSearchInput(searchValue);
+    useEffect(() => {
+        const timer = setTimeout(() => setDebouncedValue(searchInput), 300);
+        return () => clearTimeout(timer);
+    }, [searchInput, 300]);
 
-        ProductService.searchProduct(searchValue)
+    useEffect(() => {
+        ProductService.searchProduct(searchInput)
             .then((res) => res.json())
             .then(
                 (data) => {
@@ -28,6 +32,10 @@ const SearchProducts = ({ setItems, items }) => {
                     setError('Something went wrong!');
                 },
             );
+    }, [debouncedValue]);
+
+    const searchItems = (searchValue) => {
+        setSearchInput(searchValue);
     };
 
     return (
