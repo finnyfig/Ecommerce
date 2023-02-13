@@ -10,6 +10,7 @@ import {
     CardProductImage,
 } from './cardStyles';
 import { ContentBox, Box, ProductsWrapper } from '../products/styles';
+import LazyLoad from 'react-lazy-load';
 
 const Card = ({ products }) => {
     //destructing of props passed to function
@@ -17,7 +18,9 @@ const Card = ({ products }) => {
     return (
         <>
             <CardTextWrapper>
-                <CardProductImage src={images[0]}></CardProductImage>
+                <LazyLoad>
+                    <CardProductImage src={images[0]}></CardProductImage>
+                </LazyLoad>
                 <CardTextTitle>{title}</CardTextTitle>
                 <CardCategory>Category : {category}</CardCategory>
                 <CardTextBody>{description}</CardTextBody>
