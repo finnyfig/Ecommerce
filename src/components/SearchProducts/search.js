@@ -1,43 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import ProductService from '../../services/productService';
 import { SearchInput } from './searchStyles';
+import Loader from '../../assets/spinning-circles.svg';
+import { LoaderWrapper } from '../products/styles';
 
-const SearchProducts = ({ setItems, items }) => {
+const SearchProducts = ({ setItems, items, setIsLoading }) => {
     const [searchInput, setSearchInput] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [debouncedValue, setDebouncedValue] = useState(searchInput);
 
     useEffect(() => {
         const timer = setTimeout(() => setDebouncedValue(searchInput), 300);
+        console.log('search debounce');
         return () => clearTimeout(timer);
     }, [searchInput, 300]);
 
     useEffect(() => {
-        ProductService.searchProduct(searchInput)
-            .then((res) => res.json())
-            .then(
-                (data) => {
-                    setIsLoading(false);
-                    if (searchInput !== '') {
-                        const filteredData = data?.products.filter((item) => {
-                            return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase());
-                        });
-                        setItems(filteredData);
-                    } else {
-                        setItems(data.products);
-                    }
-                },
-                (error) => {
-                    setIsLoading(false);
-                    setError('Something went wrong!');
-                },
-            );
+        console.log('search searchInput');
+        if (debouncedValue) {
+            setIsLoading(true);
+            ProductService.searchProduct(searchInput)
+                .then((res) => res.json())
+                .then(
+                    (data) => {
+                        setIsLoading(false);
+                        if (searchInput !== '') {
+                            const filteredData = data?.products.filter((item) => {
+                                return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase());
+                            });
+
+                            setItems(filteredData);
+                        } else {
+                            setItems(data.products);
+                        }
+                    },
+                    (error) => {
+                        setIsLoading(false);
+                        setError('Something went wrong!');
+                    },
+                );
+        }
     }, [debouncedValue]);
 
     const searchItems = (searchValue) => {
         setSearchInput(searchValue);
     };
 
+    // if (isLoading) {
+    //     return (
+    //         <LoaderWrapper>
+    //             <Loader />
+    //         </LoaderWrapper>
+    //     );
+    // }
     return (
         <>
             <label htmlFor="search-form">Search Products</label>

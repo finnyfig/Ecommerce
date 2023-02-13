@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ProductService from '../../services/productService';
 import Select from 'react-select';
 
-const FilterCategory = ({ setItems }) => {
+const FilterCategory = ({ setItems, setIsLoading }) => {
     const [categoryOptions, setCategoryOptions] = useState([]);
     const [category, setCategory] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -31,6 +30,7 @@ const FilterCategory = ({ setItems }) => {
     }, []);
 
     const filterByCategory = (e) => {
+        setIsLoading(true);
         setCategory(e);
         ProductService.getProductsCategory(e.value)
             .then((res) => res.json())

@@ -31,13 +31,6 @@ export default function Products(props) {
             );
     }, []);
 
-    if (isLoading) {
-        return (
-            <LoaderWrapper>
-                <Loader />
-            </LoaderWrapper>
-        );
-    }
     return (
         <ProductsWrapper>
             <ContentBox>
@@ -47,30 +40,38 @@ export default function Products(props) {
                 </Box>
                 <Box>
                     {/* Searching  products with product description*/}
-                    <SearchProducts setItems={setItems} />
+                    <SearchProducts setItems={setItems} setIsLoading={setIsLoading} />
                 </Box>
                 <Box>
                     {/* Filter based on category of products */}
-                    <FilterCategory setItems={setItems} />
+                    <FilterCategory setItems={setItems} setIsLoading={setIsLoading} />
                 </Box>
             </ContentBox>
 
-            {error && <div>{error}</div>}
-            {items ? (
-                <CardContainer>
-                    {items.map((item, index) => (
-                        <Fragment key={item.id}>
-                            <CardWrapper>
-                                {/* Display card layout for products  */}
-                                <Card products={item} />
-                                {/* Product is deleted from the list when this button is clicked */}
-                                <DeleteProductButton setItems={setItems} itemId={item.id} items={items} />
-                            </CardWrapper>
-                        </Fragment>
-                    ))}
-                </CardContainer>
+            {isLoading ? (
+                <LoaderWrapper>
+                    <Loader />
+                </LoaderWrapper>
             ) : (
-                <p>No products found</p>
+                <>
+                    {error && <div>{error}</div>}
+                    {items ? (
+                        <CardContainer>
+                            {items.map((item, index) => (
+                                <Fragment key={item.id}>
+                                    <CardWrapper>
+                                        {/* Display card layout for products  */}
+                                        <Card products={item} />
+                                        {/* Product is deleted from the list when this button is clicked */}
+                                        <DeleteProductButton setItems={setItems} itemId={item.id} items={items} />
+                                    </CardWrapper>
+                                </Fragment>
+                            ))}
+                        </CardContainer>
+                    ) : (
+                        <p>No products found</p>
+                    )}
+                </>
             )}
         </ProductsWrapper>
     );
